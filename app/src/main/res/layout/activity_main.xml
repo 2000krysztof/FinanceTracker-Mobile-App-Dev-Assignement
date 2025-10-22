@@ -35,6 +35,13 @@
                 android:layout_height="wrap_content"
                 android:text="Hi"
                 android:textSize="34sp" />
+
+            <LinearLayout
+                android:id="@+id/budegetEntriesPreviewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"></LinearLayout>
         </LinearLayout>
     </ScrollView>
 

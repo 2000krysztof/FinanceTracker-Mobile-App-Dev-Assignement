@@ -2,10 +2,14 @@ package com.example.finamcetracker
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finamcetracker.CostumeViews.BudgetEntryView
+import com.example.finamcetracker.models.BudgetEntry
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import java.sql.Date
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,10 +17,16 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         handleNavbar()
-
+        handleBudgetEntries()
 
     }
 
+    fun handleBudgetEntries(){
+        val testBudgetEntry = BudgetEntry(20.0,"test", Date(1))
+        val budgetEntryView = BudgetEntryView(this, attrs = null, entry = testBudgetEntry);
+        val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
+        entriesList.addView(budgetEntryView)
+    }
 
     fun handleNavbar(){
         val navBar = findViewById<BottomNavigationView>(R.id.navBar)

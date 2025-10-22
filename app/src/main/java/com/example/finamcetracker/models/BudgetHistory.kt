@@ -15,6 +15,13 @@ class BudgetHistory {
         return entries.sortedBy { it.date }.take(amount).toTypedArray();
     }
 
+    fun addEntry(entry : BudgetEntry) : Boolean{
+        return entries.add(entry);
+    }
+
+    fun deleteEntry(entry : BudgetEntry) : Boolean{
+        return entries.remove(entry);
+    }
 
 
 }
