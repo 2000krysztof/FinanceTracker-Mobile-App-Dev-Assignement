@@ -18,7 +18,17 @@ class MainActivity : AppCompatActivity() {
         navBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home ->{
-                    Log.d("Home Button","home button works")
+
+                    true
+                }
+
+                R.id.nav_budget_list ->{
+
+                    true
+                }
+
+                R.id.nav_settings ->{
+
                     true
                 }
                 else->false;
