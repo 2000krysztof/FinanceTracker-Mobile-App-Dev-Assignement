@@ -31,11 +31,11 @@
                     android:text="Amount"
                     android:textSize="34sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/AmountValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:inputType="numberDecimal"
                     android:textSize="34sp" />
             </TableRow>
 
@@ -50,11 +50,11 @@
                     android:text="Name"
                     android:textSize="34sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/NameValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:inputType="text"
                     android:textSize="34sp" />
             </TableRow>
 
@@ -79,6 +79,24 @@
             </TableRow>
 
         </TableLayout>
+
+        <Button
+            android:id="@+id/ConfirmChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Changes"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/check" />
+
+        <Button
+            android:id="@+id/DiscardChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discard Changes"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/outline_cancel_24"
+            app:iconPadding="30dp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
