@@ -23,6 +23,7 @@ class BudgetEntryView (context: Context, attrs: AttributeSet?, entry: BudgetEntr
         button.setOnClickListener {
             val intent = Intent(context, ViewBudgetEntryActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("entry", entry)
             context.startActivity(intent)
         }
         deleteButton.setOnClickListener {
