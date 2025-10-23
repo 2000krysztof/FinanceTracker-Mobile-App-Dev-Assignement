@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/BackButton"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_arrow_back_24" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:textSize="34sp" />
+
+                <EditText
+                    android:id="@+id/AmountValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="34sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="34sp" />
+
+                <EditText
+                    android:id="@+id/NameValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="34sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textSize="34sp" />
+
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="date"
+                    android:inputType="date" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/ConfirmChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Changes"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/check" />
+
+        <Button
+            android:id="@+id/DiscardChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discard Changes"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/outline_cancel_24"
+            app:iconPadding="30dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
