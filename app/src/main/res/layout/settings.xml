@@ -6,37 +6,34 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/HeaderLayout"
-        android:layout_width="411dp"
-        android:layout_height="164dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/BudgetListTitle"
+            android:id="@+id/SettingsHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Budget List"
+            android:text="Settings"
             android:textSize="48sp" />
-    </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/BudgetList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/navBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HeaderLayout">
-
-        <LinearLayout
+        <Button
+            android:id="@+id/WipeAccountButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:text="Wipe Account" />
+
+        <Button
+            android:id="@+id/LogOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Out" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBar"
@@ -44,7 +41,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_bar" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
