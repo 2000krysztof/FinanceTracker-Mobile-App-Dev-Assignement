@@ -1,5 +1,6 @@
 package com.example.finamcetracker
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
@@ -58,5 +59,19 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun verifyUserIsSignedIn(context: Context) : User{
+        val prefs = context.getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+
+        val username = prefs.getString("username", null)
+        if(username == null){
+
+        }
+
+        return User("test","password")
+
+        val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
     }
 }
