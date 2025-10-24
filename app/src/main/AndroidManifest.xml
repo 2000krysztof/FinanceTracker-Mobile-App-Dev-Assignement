@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".Activities.ViewBudgetEntryActivity" />
         <activity android:name=".Activities.LoginPageActivity" />
+        <activity android:name=".Activities.SettingsActivity" />
 
     </application>
 
