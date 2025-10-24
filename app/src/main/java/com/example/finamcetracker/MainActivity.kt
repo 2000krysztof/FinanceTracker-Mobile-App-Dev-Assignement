@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         handleBudgetEntries()
 
         var user = User("testUser", "password")
-        user.toJson()
+
+        user.save(this)
+        User.logUsers(this);
     }
 
     fun handleBudgetEntries(){
