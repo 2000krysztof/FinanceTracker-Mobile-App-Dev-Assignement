@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ViewBudgetEntryActivity" />
+        <activity android:name=".Activities.LoginPageActivity" />
 
     </application>
 

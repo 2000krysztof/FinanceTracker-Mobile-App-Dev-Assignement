@@ -50,7 +50,7 @@ class ViewBudgetEntryActivity : AppCompatActivity(){
         editables = arrayOf(amount, name, date)
     }
     fun populateFields(){
-        val entry = intent.getSerializableExtra<BudgetEntry>("entry", BudgetEntry::class.java)
+        val entry = intent.getSerializableExtra("entry", BudgetEntry::class.java)
         amount.setText(entry?.value.toString())
         name.setText(entry?.name)
         date.setText(entry?.date.toString())
