@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finamcetracker.CostumeViews.BudgetEntryView
 import com.example.finamcetracker.models.BudgetEntry
+import com.example.finamcetracker.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import java.sql.Date
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         handleNavbar()
         handleBudgetEntries()
 
+        var user = User("testUser", "password")
+        user.toJson()
     }
 
     fun handleBudgetEntries(){
