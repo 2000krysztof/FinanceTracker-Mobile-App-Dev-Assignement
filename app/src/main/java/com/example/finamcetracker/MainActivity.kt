@@ -15,6 +15,7 @@ import com.example.finamcetracker.Activities.SettingsActivity
 import com.example.finamcetracker.Activities.ViewBudgetEntryActivity
 import com.example.finamcetracker.CostumeViews.BudgetEntryView
 import com.example.finamcetracker.models.BudgetEntry
+import com.example.finamcetracker.models.BudgetHistory
 import com.example.finamcetracker.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -29,7 +30,15 @@ class MainActivity : AppCompatActivity() {
         handleNavbar()
         getRefferences()
         verifyUserIsSignedIn()
-        setWelcomeMessage()
+        val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+        val username = prefs.getString("username", "")
+        if(!(username == "" || username == null)){
+            val user = User.getUserByName(this,username)
+            if(user == null) {return}
+            onUserIsPresent(user)
+
+        }
+
     }
 
     override fun onActivityResult(
@@ -39,25 +48,37 @@ class MainActivity : AppCompatActivity() {
         caller: ComponentCaller
     ) {
         super.onActivityResult(requestCode, resultCode, data, caller)
-        handleBudgetEntries()
-        setWelcomeMessage()
+        val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+        val username = prefs.getString("username", "")
+        if(username == null){return}
+        val user = User.getUserByName(this,username)
+        if(user == null) { return}
+        onUserIsPresent(user)
     }
 
+    fun onUserIsPresent(user: User){
+        setWelcomeMessage(user)
+        handleBudgetEntries(user)
+    }
     fun getRefferences(){
         welcomeText = findViewById(R.id.WelcomeText)
     }
 
-    fun setWelcomeMessage(){
+    fun setWelcomeMessage(user: User){
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         val username = prefs.getString("username", "")
         val welcomeMessage = "Hi $username"
         welcomeText.text = welcomeMessage
     }
-    fun handleBudgetEntries(){
-        val testBudgetEntry = BudgetEntry(20.0,"test", Date(1))
-        val budgetEntryView = BudgetEntryView(this, attrs = null, entry = testBudgetEntry);
-        val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
-        entriesList.addView(budgetEntryView)
+    fun handleBudgetEntries(user: User){
+        val budgetHistory = BudgetHistory()
+        budgetHistory.loadFromFile(this, user.name)
+        for (entry in budgetHistory.entries){
+            val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry);
+            val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
+            entriesList.addView(budgetEntryView)
+        }
+
     }
 
     fun handleNavbar(){
@@ -96,4 +117,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
 }
