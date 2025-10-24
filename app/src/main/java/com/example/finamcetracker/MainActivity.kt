@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finamcetracker.Activities.BudgetEntryListActivity
 import com.example.finamcetracker.Activities.LoginPageActivity
 import com.example.finamcetracker.Activities.SettingsActivity
 import com.example.finamcetracker.Activities.ViewBudgetEntryActivity
@@ -65,7 +66,9 @@ class MainActivity : AppCompatActivity() {
         navBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_budget_list ->{
-                    Log.d("testing clicks", "list")
+                    intent = Intent(this, BudgetEntryListActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                    startActivity(intent)
                     true
                 }
 
