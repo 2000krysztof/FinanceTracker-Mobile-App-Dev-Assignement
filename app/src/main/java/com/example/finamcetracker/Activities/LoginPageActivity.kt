@@ -64,10 +64,10 @@ class LoginPageActivity : AppCompatActivity(){
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         val editor = prefs.edit()
 
-        editor.putString("user", user.name)
-        editor.putBoolean("isLoggedIn", true)
+        editor.putString("username", user.name)
         editor.apply()
 
+        finish()
     }
 
 }
