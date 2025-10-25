@@ -28,6 +28,9 @@ class AddBudgetEntryActivity : AppCompatActivity(){
         setContentView(R.layout.add_budget_entry)
         getRefferences()
         initializeAddEntryButton()
+        findViewById<Button>(R.id.BackButton).setOnClickListener {
+            finish()
+        }
     }
 
 
