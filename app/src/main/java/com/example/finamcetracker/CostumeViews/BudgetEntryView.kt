@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import com.example.finamcetracker.Activities.ViewBudgetEntryActivity
 import com.example.finamcetracker.models.BudgetEntry
 import com.example.finamcetracker.models.BudgetHistory
+import com.example.finamcetracker.R
 
 class BudgetEntryView (context: Context, attrs: AttributeSet?, entry: BudgetEntry): LinearLayout(context, attrs){
     private val button = Button(context);
@@ -35,6 +36,7 @@ class BudgetEntryView (context: Context, attrs: AttributeSet?, entry: BudgetEntr
             BudgetHistory.saveToFile(this.context,username!!)
             deleteCallbcak()
         }
+        deleteButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.delete,0,0,0,)
 
     }
 
