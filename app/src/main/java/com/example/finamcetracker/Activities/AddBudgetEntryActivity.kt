@@ -53,7 +53,7 @@ class AddBudgetEntryActivity : AppCompatActivity(){
                 val budgetEntry = BudgetEntry(
                     amount.text.toString().toDouble(),
                     name.text.toString(),
-                    Date(localDate.toEpochDay())
+                    Date(localDate.toEpochDay()* 24 * 60 * 60 * 1000)
                 )
 
                 BudgetHistory.entries.add(budgetEntry)

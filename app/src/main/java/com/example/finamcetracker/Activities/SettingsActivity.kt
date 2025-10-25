@@ -69,10 +69,13 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun initializeWipeAccountButton(){
-        BudgetHistory.entries.clear()
-        val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
-        val username = prefs.getString("username","")
-        BudgetHistory.saveToFile(this, username!! )
+        wipeAccountButton.setOnClickListener {
+            BudgetHistory.entries.clear()
+            val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+            val username = prefs.getString("username","")
+            BudgetHistory.saveToFile(this, username!! )
+        }
+
 
     }
 

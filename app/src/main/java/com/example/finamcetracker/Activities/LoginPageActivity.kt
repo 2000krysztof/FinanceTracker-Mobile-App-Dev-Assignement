@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finamcetracker.R
+import com.example.finamcetracker.models.BudgetHistory
 import com.example.finamcetracker.models.User
 
 class LoginPageActivity : AppCompatActivity(){
@@ -66,7 +67,7 @@ class LoginPageActivity : AppCompatActivity(){
 
         editor.putString("username", user.name)
         editor.apply()
-
+        BudgetHistory.loadFromFile(this, user.name)
         finish()
     }
 
