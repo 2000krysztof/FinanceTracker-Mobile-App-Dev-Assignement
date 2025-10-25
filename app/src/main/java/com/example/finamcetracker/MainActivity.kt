@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        verifyUserIsSignedIn()
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         val username = prefs.getString("username", "")
         if(username == null){return}

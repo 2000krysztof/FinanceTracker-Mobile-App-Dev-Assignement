@@ -26,6 +26,8 @@ class SettingsActivity : AppCompatActivity() {
         getRefferences()
 
         handleNavbar()
+        initializeLogOutButton()
+
     }
 
     fun handleNavbar(){
