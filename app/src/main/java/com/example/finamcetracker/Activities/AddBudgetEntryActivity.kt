@@ -62,9 +62,7 @@ class AddBudgetEntryActivity : AppCompatActivity(){
             } catch (e: Exception) {
                 Log.e("initializeAddEntryButton", "Error creating entry", e)
             }
-
-
-
+            finish()
 
         }
     }
