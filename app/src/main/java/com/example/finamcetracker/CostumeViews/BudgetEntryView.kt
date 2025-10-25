@@ -14,6 +14,8 @@ import com.example.finamcetracker.models.BudgetHistory
 class BudgetEntryView (context: Context, attrs: AttributeSet?, entry: BudgetEntry): LinearLayout(context, attrs){
     private val button = Button(context);
     private val deleteButton = Button(context);
+
+    private var deleteCallbcak:()->Unit = {}
     init{
         orientation=HORIZONTAL
         button.text = entry.toString()
@@ -27,9 +29,16 @@ class BudgetEntryView (context: Context, attrs: AttributeSet?, entry: BudgetEntr
             context.startActivity(intent)
         }
         deleteButton.setOnClickListener {
-            //delete logic here
-
+            BudgetHistory.entries.remove(entry)
+            val prefs = this.context.getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+            val username = prefs.getString("username", "")
+            BudgetHistory.saveToFile(this.context,username!!)
+            deleteCallbcak()
         }
 
+    }
+
+    fun setDeleteCallback(callback: ()->Unit = {}){
+        deleteCallbcak = callback
     }
 }

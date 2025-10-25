@@ -35,6 +35,9 @@ class BudgetEntryListActivity : AppCompatActivity() {
         budgetList.removeAllViews()
         for (entry in list){
             val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry);
+            budgetEntryView.setDeleteCallback {
+                budgetList.removeView(budgetEntryView)
+            }
             budgetList.addView(budgetEntryView)
         }
 
