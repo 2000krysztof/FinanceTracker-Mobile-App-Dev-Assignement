@@ -18,9 +18,15 @@ object BudgetHistory {
     fun sortByValue(amount: Int) : Array<BudgetEntry>{
         return entries.sortedBy { it.value }.take(amount).toTypedArray();
     }
+    fun sortByValue() : Array<BudgetEntry>{
+        return entries.sortedBy { it.value }.toTypedArray();
+    }
 
     fun sortByDate(amount: Int) : Array<BudgetEntry>{
         return entries.sortedBy { it.date }.take(amount).toTypedArray();
+    }
+    fun sortByDate() : Array<BudgetEntry>{
+        return entries.sortedBy { it.date }.toTypedArray();
     }
 
     fun addEntry(entry : BudgetEntry) : Boolean{
