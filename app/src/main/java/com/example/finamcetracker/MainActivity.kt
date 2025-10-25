@@ -9,19 +9,25 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finamcetracker.Activities.AddBudgetEntryActivity
 import com.example.finamcetracker.Activities.BudgetEntryListActivity
 import com.example.finamcetracker.Activities.LoginPageActivity
 import com.example.finamcetracker.Activities.SettingsActivity
 import com.example.finamcetracker.Activities.ViewBudgetEntryActivity
 import com.example.finamcetracker.CostumeViews.BudgetEntryView
 import com.example.finamcetracker.models.BudgetEntry
+import com.example.finamcetracker.models.BudgetHistory
 import com.example.finamcetracker.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import java.io.File
 import java.sql.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var welcomeText: TextView
+    lateinit var addEntryButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,35 +35,56 @@ class MainActivity : AppCompatActivity() {
         handleNavbar()
         getRefferences()
         verifyUserIsSignedIn()
-        setWelcomeMessage()
+
+        initializeAddBudgetEntryButton()
+
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?,
-        caller: ComponentCaller
-    ) {
-        super.onActivityResult(requestCode, resultCode, data, caller)
-        handleBudgetEntries()
-        setWelcomeMessage()
+    override fun onResume() {
+        super.onResume()
+        val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+        val username = prefs.getString("username", "")
+        if(username == null){return}
+        val user = User.getUserByName(this,username)
+        if(user == null) { return}
+        onUserIsPresent(user)
     }
 
+    fun onUserIsPresent(user: User){
+        setWelcomeMessage(user)
+        handleBudgetEntries(user)
+    }
     fun getRefferences(){
         welcomeText = findViewById(R.id.WelcomeText)
+        addEntryButton = findViewById(R.id.AddBudgetEntryButton)
     }
 
-    fun setWelcomeMessage(){
+    fun initializeAddBudgetEntryButton(){
+        addEntryButton.setOnClickListener {
+            intent = Intent(this, AddBudgetEntryActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
+
+    fun setWelcomeMessage(user: User){
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         val username = prefs.getString("username", "")
         val welcomeMessage = "Hi $username"
         welcomeText.text = welcomeMessage
     }
-    fun handleBudgetEntries(){
-        val testBudgetEntry = BudgetEntry(20.0,"test", Date(1))
-        val budgetEntryView = BudgetEntryView(this, attrs = null, entry = testBudgetEntry);
+    fun handleBudgetEntries(user: User){
+        val budgetHistory = BudgetHistory
+        if(budgetHistory.isEmpty()){
+            budgetHistory.loadFromFile(this, user.name)
+        }
         val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
-        entriesList.addView(budgetEntryView)
+        entriesList.removeAllViews()
+        for (entry in budgetHistory.entries){
+            val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry);
+            entriesList.addView(budgetEntryView)
+        }
+
     }
 
     fun handleNavbar(){
@@ -88,12 +115,23 @@ class MainActivity : AppCompatActivity() {
 
     fun verifyUserIsSignedIn(){
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
-
         val username = prefs.getString("username", null)
         if(username == null){
             val intent = Intent(this, LoginPageActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent)
+        }
+    }
+
+//Debug method to see if the file created actualy has the data
+    fun viewFile(){
+        val file = File(this.filesDir, "krzysztof.json")
+        if(file.exists()){
+            Log.d("file", file.readText())
+        }
+        else{
+
+            Log.d("file", "file does not exist")
         }
     }
 }

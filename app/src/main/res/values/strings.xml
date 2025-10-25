@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FinamceTracker</string>
+
+    <string-array name="filter_options">
+        <item>Latest</item>
+        <item>Oldest</item>
+        <item>Highest</item>
+        <item>Lowest</item>
+    </string-array>
+
 </resources>
