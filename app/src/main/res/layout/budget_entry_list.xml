@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/AddBudgetEntryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="#F2B916"
+        app:layout_constraintBottom_toBottomOf="@+id/BudgetList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/HeaderLayout"
+        app:layout_constraintVertical_bias="0.9"
+        app:srcCompat="@drawable/plus" />
+
     <LinearLayout
         android:id="@+id/HeaderLayout"
         android:layout_width="411dp"
@@ -20,6 +34,13 @@
             android:layout_height="wrap_content"
             android:text="Budget List"
             android:textSize="48sp" />
+
+        <Spinner
+            android:id="@+id/FilterDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/filter_options"/>
+
     </LinearLayout>
 
     <ScrollView
@@ -33,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/HeaderLayout">
 
         <LinearLayout
+            android:id="@+id/BudgetListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

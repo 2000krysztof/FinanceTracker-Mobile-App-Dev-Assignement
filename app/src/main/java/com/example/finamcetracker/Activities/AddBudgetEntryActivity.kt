@@ -1,13 +1,18 @@
 package com.example.finamcetracker.Activities
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finamcetracker.R
 import com.example.finamcetracker.models.BudgetEntry
+import com.example.finamcetracker.models.BudgetHistory
 import java.sql.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AddBudgetEntryActivity : AppCompatActivity(){
 
@@ -22,7 +27,7 @@ class AddBudgetEntryActivity : AppCompatActivity(){
         enableEdgeToEdge()
         setContentView(R.layout.add_budget_entry)
         getRefferences()
-
+        initializeAddEntryButton()
     }
 
 
@@ -36,10 +41,26 @@ class AddBudgetEntryActivity : AppCompatActivity(){
 
     fun initializeAddEntryButton(){
         addEntryButton.setOnClickListener {
-            val budgetEntry = BudgetEntry(
-                amount.text.toString().toDouble(),
-                name.text.toString(),
-                Date.valueOf(date.toString()))
+            val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+            val username = prefs.getString("username", "")
+
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val localDate = LocalDate.parse(date.text, formatter)
+            try {
+                val budgetEntry = BudgetEntry(
+                    amount.text.toString().toDouble(),
+                    name.text.toString(),
+                    Date(localDate.toEpochDay())
+                )
+
+                BudgetHistory.entries.add(budgetEntry)
+                BudgetHistory.saveToFile(this, username!!)
+
+            } catch (e: Exception) {
+                Log.e("initializeAddEntryButton", "Error creating entry", e)
+            }
+
+
 
 
         }
