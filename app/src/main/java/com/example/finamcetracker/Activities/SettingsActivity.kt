@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finamcetracker.R
 import androidx.core.content.edit
+import com.example.finamcetracker.models.BudgetHistory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -27,7 +28,7 @@ class SettingsActivity : AppCompatActivity() {
 
         handleNavbar()
         initializeLogOutButton()
-
+        initializeWipeAccountButton()
     }
 
     fun handleNavbar(){
@@ -65,6 +66,14 @@ class SettingsActivity : AppCompatActivity() {
             }
             finish()
         }
+    }
+
+    fun initializeWipeAccountButton(){
+        BudgetHistory.entries.clear()
+        val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
+        val username = prefs.getString("username","")
+        BudgetHistory.saveToFile(this, username!! )
+
     }
 
 
