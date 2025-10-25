@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        verifyUserIsSignedIn()
         val prefs = getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         val username = prefs.getString("username", "")
         if(username == null){return}
@@ -80,8 +81,11 @@ class MainActivity : AppCompatActivity() {
         }
         val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
         entriesList.removeAllViews()
-        for (entry in budgetHistory.entries){
-            val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry);
+        for (entry in budgetHistory.entries.take(5)){
+            val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry)
+            budgetEntryView.setDeleteCallback {
+                entriesList.removeView(budgetEntryView)
+            }
             entriesList.addView(budgetEntryView)
         }
 

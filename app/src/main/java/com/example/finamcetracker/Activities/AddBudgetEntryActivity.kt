@@ -28,6 +28,9 @@ class AddBudgetEntryActivity : AppCompatActivity(){
         setContentView(R.layout.add_budget_entry)
         getRefferences()
         initializeAddEntryButton()
+        findViewById<Button>(R.id.BackButton).setOnClickListener {
+            finish()
+        }
     }
 
 
@@ -50,7 +53,7 @@ class AddBudgetEntryActivity : AppCompatActivity(){
                 val budgetEntry = BudgetEntry(
                     amount.text.toString().toDouble(),
                     name.text.toString(),
-                    Date(localDate.toEpochDay())
+                    Date(localDate.toEpochDay()* 24 * 60 * 60 * 1000)
                 )
 
                 BudgetHistory.entries.add(budgetEntry)
@@ -59,9 +62,7 @@ class AddBudgetEntryActivity : AppCompatActivity(){
             } catch (e: Exception) {
                 Log.e("initializeAddEntryButton", "Error creating entry", e)
             }
-
-
-
+            finish()
 
         }
     }

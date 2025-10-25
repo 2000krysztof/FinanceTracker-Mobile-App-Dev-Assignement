@@ -40,8 +40,6 @@ object BudgetHistory {
     fun loadFromFile(context: Context, name: String): Boolean{
         val file = File(context.filesDir, "$name.json")
         if(!file.exists()) {
-            file.createNewFile()
-            file.writeText("[]")
             entries = mutableListOf()
             return false
         }
@@ -50,7 +48,6 @@ object BudgetHistory {
             .setDateFormat("MMM d, yyyy")
             .create()
         val content = file.readText()
-
         try{
             entries = gson.fromJson(content, object : TypeToken<MutableList<BudgetEntry>>() {}.type)
             return true
@@ -64,6 +61,7 @@ object BudgetHistory {
 
     fun saveToFile(context: Context, name: String){
         val file = File(context.filesDir, "$name.json")
+
         Log.d("inputStuff", "triggered")
         if(!file.exists()) {
             file.createNewFile()

@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finamcetracker.R
 import com.example.finamcetracker.models.BudgetEntry
+import com.example.finamcetracker.models.BudgetHistory
 
 class ViewBudgetEntryActivity : AppCompatActivity(){
     private lateinit var amount: EditText
@@ -50,7 +51,7 @@ class ViewBudgetEntryActivity : AppCompatActivity(){
         editables = arrayOf(amount, name, date)
     }
     fun populateFields(){
-        val entry = intent.getSerializableExtra("entry", BudgetEntry::class.java)
+        val entry = intent.getSerializableExtra("entry") as? BudgetEntry
         amount.setText(entry?.value.toString())
         name.setText(entry?.name)
         date.setText(entry?.date.toString())

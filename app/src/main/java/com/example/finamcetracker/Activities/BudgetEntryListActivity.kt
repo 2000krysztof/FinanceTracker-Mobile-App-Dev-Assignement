@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
@@ -16,10 +17,13 @@ import com.example.finamcetracker.models.BudgetEntry
 import com.example.finamcetracker.models.BudgetHistory
 import com.example.finamcetracker.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BudgetEntryListActivity : AppCompatActivity() {
     lateinit var budgetList : LinearLayout
     lateinit var filterDropdown : Spinner
+    lateinit var addEntryButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +32,11 @@ class BudgetEntryListActivity : AppCompatActivity() {
         getRefferences()
         handleBudgetEntries(BudgetHistory.entries)
         handleFilterChanged()
+        initializeAddBudgetEntryButton()
+    }
+    override fun onResume() {
+        super.onResume()
+        handleBudgetEntries(BudgetHistory.entries)
     }
 
     fun handleBudgetEntries(list: List<BudgetEntry>){
@@ -35,11 +44,21 @@ class BudgetEntryListActivity : AppCompatActivity() {
         budgetList.removeAllViews()
         for (entry in list){
             val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry);
+            budgetEntryView.setDeleteCallback {
+                budgetList.removeView(budgetEntryView)
+            }
             budgetList.addView(budgetEntryView)
         }
 
     }
 
+    fun initializeAddBudgetEntryButton(){
+        addEntryButton.setOnClickListener {
+            intent = Intent(this, AddBudgetEntryActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
     fun handleFilterChanged(){
         filterDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -73,6 +92,7 @@ class BudgetEntryListActivity : AppCompatActivity() {
     fun getRefferences(){
         budgetList = findViewById(R.id.BudgetListView)
         filterDropdown = findViewById(R.id.FilterDropDown)
+        addEntryButton = findViewById(R.id.AddBudgetEntryButton)
     }
     fun handleNavbar(){
         val navBar = findViewById<BottomNavigationView>(R.id.navBar)
