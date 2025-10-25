@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
         val entriesList = findViewById<LinearLayout>(R.id.budegetEntriesPreviewLayout)
         entriesList.removeAllViews()
-        for (entry in budgetHistory.entries){
+        for (entry in budgetHistory.entries.take(5)){
             val budgetEntryView = BudgetEntryView(this, attrs = null, entry = entry)
             budgetEntryView.setDeleteCallback {
                 entriesList.removeView(budgetEntryView)
